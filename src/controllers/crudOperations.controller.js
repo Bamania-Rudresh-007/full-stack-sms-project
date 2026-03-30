@@ -6,7 +6,7 @@ const addStudent = async(req, res) => {
         console.log(req.body);
         const password = await bcrypt.hash(req.body.password, 7);
 
-        const newStudent = Student.create({...req.body, password});
+        const newStudent = await Student.create({...req.body, password});
         res.status(201).json({
             message: "Student created successfully",
             data: newStudent,
@@ -20,4 +20,23 @@ const addStudent = async(req, res) => {
     }
 }
 
-export {addStudent};    
+const getAllStudent = async(req, res) => {
+    try{
+        const students = await Student.find();
+
+        res.status(200).json({
+            message: "All studnets fetched and retured",
+            data: students,
+        });
+    }
+    catch(error){
+        res.status(500).json({
+            message: "Iternal server error",
+            error: error.message,
+        })
+    }
+}
+
+
+
+export {getAllStudent ,addStudent};    
