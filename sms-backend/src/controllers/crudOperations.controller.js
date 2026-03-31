@@ -4,9 +4,8 @@ import bcrypt from "bcrypt"
 const addStudent = async(req, res) => {
     try{
         console.log(req.body);
-        const password = await bcrypt.hash(req.body.password, 7);
 
-        const newStudent = await Student.create({...req.body, password});
+        const newStudent = await Student.create(req.body);
         res.status(201).json({
             message: "Student created successfully",
             data: newStudent,
@@ -39,11 +38,10 @@ const getAllStudent = async(req, res) => {
 
 const updateStudent = async(req, res) => {
     try{
-        const updatedStudent = await Student.findByIdAndUpdate(req.params.id);
+        const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body);
 
         res.status(204).json({
             message: "Student updated successfully",
-            data: updatedStudent
         })
     }
     catch(err){

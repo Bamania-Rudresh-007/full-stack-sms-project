@@ -13,7 +13,7 @@ app.get("/", (req, res) => {
     res.end("Hey there my dear losser")
 })
 
-app.use("/api/auth" ,authRouter)
+app.use("/api/auth" ,authRouter);
 app.use("/api/students", operationsRouter);
 
 connectDb()
