@@ -1,5 +1,4 @@
 import Student from "../models/student.model.js";
-import bcrypt from "bcrypt"
 
 const addStudent = async(req, res) => {
     try{
