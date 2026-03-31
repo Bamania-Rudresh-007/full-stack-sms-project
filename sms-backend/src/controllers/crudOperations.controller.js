@@ -39,13 +39,37 @@ const getAllStudent = async(req, res) => {
 
 const updateStudent = async(req, res) => {
     try{
-        const updatedStudent = req.body;
+        const updatedStudent = await Student.findByIdAndUpdate(req.body._id);
 
-        const updateStudent = Student.findByIdAndUpdate(req.body.id, )
+        res.status(204).json({
+            message: "Student updated successfully",
+            data: updatedStudent
+        })
     }
-    catch(error){
-
+    catch(err){
+        res.statas(500).json({
+            message: "Internal server error failed to update student",
+            error: err.message,
+        })
     }
 }
 
-export {getAllStudent ,addStudent};    
+
+const deleteStudent = async(req, res) => {
+    try{
+        const deletedStudent = await Student.findByIdAndDelete(req.body._id);
+
+        res.status(204).json({
+            message: "Student deleted Successfully",
+            data: deletedStudent,
+        })
+    }   
+    catch(err){
+        res.statas(500).json({
+            message: "Internal server error failed to delte student",
+            error: err.message,
+        })
+    }
+}
+
+export {getAllStudent ,addStudent, updateStudent, deleteStudent};    
