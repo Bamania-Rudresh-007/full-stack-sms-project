@@ -3,6 +3,7 @@ import express from "express"
 import connectDb from "./src/db/connect.db.js"
 import authRouter from "./src/routes/auth.routes.js"
 import operationsRouter from "./src/routes/home.routes.js"
+
 const app = express()
 const port = process.env.PORT
 
@@ -13,7 +14,7 @@ app.get("/", (req, res) => {
 })
 
 app.use("/api/auth" ,authRouter)
-app.use("/api/operations", operationsRouter);
+app.use("/api/students", operationsRouter);
 
 connectDb()
 
