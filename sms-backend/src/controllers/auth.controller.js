@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken"
 
 const signup = async(req, res) => {
     try {
+        console.log(req.body);
         const {name, email, password} = req.body;
 
         const encryptedPassword = await bcrypt.hash(password, 10);
@@ -21,7 +22,7 @@ const signup = async(req, res) => {
         )
 
         res.json({
-            message: "User stored in database succesffully",
+            message: "User stored in database successfully",
             data: newUser,
             token
         })
