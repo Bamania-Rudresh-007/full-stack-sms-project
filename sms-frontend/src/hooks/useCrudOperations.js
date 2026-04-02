@@ -1,4 +1,5 @@
 import { useEffect, useEffectEvent, useState } from "react";
+import API from "../api/api.js"
 
 export default function useStudentServices() {
 
@@ -34,8 +35,12 @@ export default function useStudentServices() {
     // For addStudent component...
     const addStudent = (currentStudent) => {
         try {
-            const updatedStudent = [...students, currentStudent];
-            setStudents(updatedStudent)
+            // const updatedStudent = [...students, currentStudent];
+            // setStudents(updatedStudent)
+            console.log(currentStudent);
+            API.post("/students", currentStudent)
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err))
         } catch (error) {
             console.error("Failed to store the current student data in local storage...", error);
             return [];
