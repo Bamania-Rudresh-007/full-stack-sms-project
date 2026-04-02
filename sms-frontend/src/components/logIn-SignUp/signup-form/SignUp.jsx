@@ -22,33 +22,31 @@ function SignUp() {
 
   //  handles the submit button of the signUp Form 
   const handleSubmit = (e) => {
-    // const processedUserArray = arrayOfMember(signUpUser);
 
-    if (signUpUser.name != "") {
-    //   setMember((prev) => [...prev, ...processedUserArray]);
+    if (!signUpUser.name == "" && !signUpUser.email == "" || !signUpUser.password == "") {
       console.log("Signup User:- ", signUpUser)
-    //   console.log("proccessed User:- ", processedUserArray)
         API.post("/auth/signup", signUpUser)
-            .then((res) => console.log(res))
+            .then((res) => {
+                console.log(res)
+            if(res.data.message === "User stored in database successfully"){
+                    console.log(true)
+                    localStorage.setItem("sms-token", JSON.stringify(res.data.token));
+                    setIsLogin(() => {
+                        localStorage.setItem("isLogin", JSON.stringify(true));
+                    });
+                    navigate("/home");
+                }
+            })
             .catch((err) => console.error(err))
             
       setSignUpUser({ name: "", email: "", password: "" });
       localStorage.setItem("currentLogInUser", JSON.stringify(signUpUser));
     }
-    handlerIsLogin()
-  };
-  
-  // handles the auto redirect to home page if signUpUser is already signEd up
-  const handlerIsLogin = () => {
-    if(signUpUser.name == "" && signUpUser.email == "" || signUpUser.password == ""){
+    else{
         alert("First fill the Above details please...")
         return;
     }
-    setIsLogin(() => {
-        localStorage.setItem("isLogin", JSON.stringify(true));
-    });
-    navigate("/home");
-  }
+  };
 
   return (
     <div>        
