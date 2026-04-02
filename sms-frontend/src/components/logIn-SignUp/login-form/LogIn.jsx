@@ -38,6 +38,7 @@ function LogIn() {
         await API.post("/auth/login", loginUser)
             .then((res) => {
                 console.log("User logined successfully", res);
+                localStorage.setItem("sms-token", JSON.stringify(res.data.token));
                 isLogin = true;
             })
             .catch((err) => console.error(err))
