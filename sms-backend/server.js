@@ -11,10 +11,6 @@ const port = process.env.PORT
 app.use(cors())
 app.use(express.json())
 
-app.get("/", (req, res) => {
-    res.end("Hey there my dear losser")
-})
-
 app.use("/api/auth" ,authRouter);
 app.use("/api/students", operationsRouter);
 
