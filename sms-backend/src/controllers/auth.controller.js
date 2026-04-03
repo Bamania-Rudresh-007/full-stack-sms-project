@@ -16,7 +16,7 @@ const signup = async(req, res) => {
         })
 
         const token = jwt.sign(
-            {userId: newUser._id},
+            {id: newUser._id},
             process.env.JWT_SECRET,
             {expiresIn: "1h"}
         )
