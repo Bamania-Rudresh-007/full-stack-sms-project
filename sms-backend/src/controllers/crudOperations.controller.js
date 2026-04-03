@@ -2,9 +2,9 @@ import Student from "../models/student.model.js";
 
 const addStudent = async(req, res) => {
     try{
-        console.log(req.body);
+        const compiledStudent = {...req.body, userId: req.user.id};
 
-        const newStudent = await Student.create(req.body);
+        const newStudent = await Student.create(compiledStudent);
         res.status(201).json({
             message: "Student created successfully",
             data: newStudent,
@@ -20,7 +20,7 @@ const addStudent = async(req, res) => {
 
 const getAllStudent = async(req, res) => {
     try{
-        const students = await Student.find();
+        const students = await Student.find({userId: req.user.id});
 
         res.status(200).json({
             message: "All studnets fetched and retured",
@@ -37,7 +37,13 @@ const getAllStudent = async(req, res) => {
 
 const updateStudent = async(req, res) => {
     try{
-        const updatedStudent = await Student.findByIdAndUpdate(req.params.id, req.body);
+        await Student.findByIdAndUpdate(
+            {
+                _id: req.params.id,
+                userId: req.user.id
+            },
+            req.body
+        );
 
         res.status(204).json({
             message: "Student updated successfully",
@@ -54,7 +60,12 @@ const updateStudent = async(req, res) => {
 
 const deleteStudent = async(req, res) => {
     try{
-        const deletedStudent = await Student.findByIdAndDelete(req.params.id);
+        const deletedStudent = await Student.findByIdAndDelete(
+            {
+                _id: req.params.id,
+                userId: req.user.id
+            },
+        );
 
         res.status(204).json({
             message: "Student deleted Successfully",
