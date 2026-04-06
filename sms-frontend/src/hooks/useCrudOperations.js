@@ -38,12 +38,13 @@ export default function useStudentServices() {
     // For addStudent component...
     const addStudent = (currentStudent) => {
         try {
-            console.log(currentStudent);
-            API.post("/students", currentStudent)
+            const student = {...currentStudent, number: Number(currentStudent.number), rollNumber: Number(currentStudent.rollNumber)}
+            console.log(student);
+            API.post("/students", student)
                 .then((res) => console.log(res))
                 .catch((err) => console.log(err))
         } catch (error) {
-            console.error("Failed to store the current student data in local storage...", error);
+            console.error("Failed to store the student data in database...", error);
             return [];
         }
     };
