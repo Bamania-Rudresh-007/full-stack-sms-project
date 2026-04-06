@@ -1,10 +1,11 @@
 import { Navigate, Outlet } from "react-router-dom";
+// import Welcome from "../components/Welcome-Page/Welcome";
 
 const ProtectedRoute = () => {
 
-    const token = JSON.parse(localStorage.getItem("token"));
+    const token = localStorage.getItem("token");
 
-    if(!token){
+    if(token && token !== "null"){
         return <Navigate to="/home" replace />
     }
 
