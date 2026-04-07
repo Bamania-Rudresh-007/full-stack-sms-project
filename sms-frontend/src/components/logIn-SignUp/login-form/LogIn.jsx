@@ -25,23 +25,23 @@ function LogIn() {
 
     const handleVarificationOfUser = async () => {
         
-        // if(!loginUser.email.includes("@") || loginUser.password === "" ){
-        //     alert("Invalid email or password");
-        // }
+        if(!loginUser.email.includes("@") || loginUser.password === "" ){
+            alert("Invalid email or password");
+        }
         
-        // let isLogin = false;
+        let isLogin = false;
 
-        // await API.post("/auth/login", loginUser)
-        //     .then((res) => {
-        //         console.log("User logined successfully", res);
-        //         localStorage.setItem("sms-token", JSON.stringify(res.data.token));
-        //         isLogin = true;
-        //     })
-        //     .catch((err) => console.error(err))
+        await API.post("/auth/login", loginUser)
+            .then((res) => {
+                console.log("User logined successfully", res);
+                localStorage.setItem("sms-token", JSON.stringify(res.data.token));
+                isLogin = true;
+            })
+            .catch((err) => console.error(err))
 
-        // if (isLogin) {
-        //     navigate("/home");
-        // }
+        if (isLogin) {
+            navigate("/home");
+        }
         console.log("Clicked", loading);
     };
 
