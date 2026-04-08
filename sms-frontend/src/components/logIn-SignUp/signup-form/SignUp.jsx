@@ -9,7 +9,7 @@ import ButtonLoader from "../../Loder.jsx";
 
 function SignUp() {
 
-  const { setIsLogin,  signUpUser, setSignUpUser, isLoading, setIsLoading } = useUsers();
+  const { setIsLogin,  signUpUser, setSignUpUser, isLoading, setIsLoading, handleToken} = useUsers();
 
 //   const [signUpUser, setSignUpUser] = useState({ name: "", email: "", password: "" });
   const [passType, setPassType] = useState("password");
@@ -32,6 +32,7 @@ function SignUp() {
                 console.log(res)
             if(res.data.message === "User stored in database successfully"){
                     console.log(true)
+                    handleToken(res.data.token);
                     setIsLoading(false)
                     localStorage.setItem("sms-token", JSON.stringify(res.data.token));
                     setIsLogin(() => {
