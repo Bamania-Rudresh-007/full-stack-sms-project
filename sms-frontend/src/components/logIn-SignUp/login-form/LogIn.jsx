@@ -14,7 +14,7 @@ function LogIn() {
     const [passType, setPassType] = useState("password");
 
     // the main source of indentifing wheather the loginUser is logdin or not..
-    const { loginUser, setLoginUser, isLoading, setIsLoading} = useUsers();
+    const { loginUser, setLoginUser, isLoading, setIsLoading, handleToken, token} = useUsers();
 
     // storing loginUser email pass to check wheather they are signed up or not!!
     const handleChange = (e) => {
@@ -30,21 +30,18 @@ function LogIn() {
             alert("Invalid email or password");
         }
         
-        let isLogin = false;
         setIsLoading(true);
         await API.post("/auth/login", loginUser)
             .then((res) => {
                 console.log("User logined successfully", res);
-                localStorage.setItem("sms-token", JSON.stringify(res.data.token));
-                isLogin = true;
+                handleToken(res.data.token);
                 setIsLoading(false);
             })
             .catch((err) => console.error(err))
 
-        if (isLogin) {
+        if (token) {
             navigate("/home");
         }
-        console.log("Clicked", isLoading);
     };
 
 
