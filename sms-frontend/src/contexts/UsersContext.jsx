@@ -5,7 +5,12 @@ export function UsersProvider({ children }) {
     const [signUpUser, setSignUpUser] = useState({ name: "", email: "", password: "" });
     const [loginUser, setLoginUser] = useState({email: "", password: ""});
     const [isLoading, setIsLoading] = useState(false);
+    const [token, setToken] = useState(JSON.parse(localStorage.getItem("sms-token")));
 
+    const handleToken = (newToken) => {
+        localStorage.setItem("sms-token", JSON.stringify(newToken));
+        setToken(newToken);
+    }
 
 
   const [isLogin, setIsLogin] = useState(() => {
@@ -14,16 +19,16 @@ export function UsersProvider({ children }) {
   });
 
 
-  const arrayOfMember = (data) => {
-    const dataArray = Array.isArray(data) ? data : [data];
+//   const arrayOfMember = (data) => {
+//     const dataArray = Array.isArray(data) ? data : [data];
 
-    return dataArray.map((element, index) => {
-      return { ...element, id: Date.now() + index, logedIn: true };
-    });
-  };
+//     return dataArray.map((element, index) => {
+//       return { ...element, id: Date.now() + index, logedIn: true };
+//     });
+//   };
 
   const values = {    
-    arrayOfMember,
+    // arrayOfMember,
     setIsLogin,
     signUpUser,
     setSignUpUser,
@@ -31,6 +36,8 @@ export function UsersProvider({ children }) {
     setLoginUser,
     isLoading,
     setIsLoading,
+    handleToken,
+    token
   };
 
   return (
