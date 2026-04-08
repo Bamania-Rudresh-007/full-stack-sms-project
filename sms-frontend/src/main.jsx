@@ -16,9 +16,9 @@ import ViewStudentDetails from "./components/AllStudents-AND-PersonalCards/ViewS
 import ProtectedRoute from "./hooks/autoRedirect.jsx";
 
 const RootElement = () => {
-  const isLogin = JSON.parse(localStorage.getItem("isLogin"));
+  const token = JSON.parse(localStorage.getItem("sms-token"));
 
-  return isLogin ? <Navigate to="/home" replace /> : <Welcome />;
+  return token ? <Navigate to="/home" replace /> : <Welcome />;
 };
 
 const router = createBrowserRouter([
